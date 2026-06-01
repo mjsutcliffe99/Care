@@ -1,0 +1,9 @@
+{
+	"ui": {
+		"main_menu": {
+			"start_game": "Start Game",
+			"save_game": "My name is {name}",
+			"exit_game": "Exit Game"
+		}
+	}
+}
