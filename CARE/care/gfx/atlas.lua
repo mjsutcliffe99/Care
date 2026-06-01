@@ -7,7 +7,7 @@ Atlas.__index = Atlas
 function Atlas:new(image_path,reg_path,scale)
     local self = setmetatable({
         image = love.graphics.newImage(image_path),
-        register = json.decode(love.filesystem.read(reg_path)),
+        register = reg_path and json.decode(love.filesystem.read(reg_path)) or {},
         quads = {},
         scale = scale or 1
     }, Atlas)

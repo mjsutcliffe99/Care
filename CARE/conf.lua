@@ -1,5 +1,5 @@
 function love.conf(t)
-    --t.window.title = "Care"
+    t.window.title = "Care Demo"
     --t.window.resizable = true
     --t.window.width  = 1280
     --t.window.height = 720

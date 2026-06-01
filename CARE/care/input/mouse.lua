@@ -28,4 +28,31 @@ function mouse.draw()
     if (mouse.atlas and mouse.cursor and mouse.visible) then love.graphics.draw(mouse.atlas.image,mouse.cursor,mouse.x-mouse.hotspot.x,mouse.y-mouse.hotspot.y) end
 end
 
+--TEMP:
+function mouse.is_inside_rect(x, y, w, h, r, sx, sy, ox, oy)
+    local sx = sx or 1
+    local sy = sy or 1
+    local ox = ox or 0
+    local oy = oy or 0
+    local mx, my = mouse.get_position()
+
+    if (ox==0 and oy==0) then return (mx>=x and mx<=x+w*sx and my>=0 and my<=y+h*sy) end
+
+    -- move mouse into object-centered coordinates
+    local dx = mx - x
+    local dy = my - y
+
+    -- undo rotation
+    local cosr = math.cos(-r)
+    local sinr = math.sin(-r)
+    local localX = dx*cosr - dy*sinr
+    local localY = dx*sinr + dy*cosr
+
+    -- undo scale
+    local px = (localX/sx) + ox
+    local py = (localY/sy) + oy
+
+    return (px>=0 and px<=w and py>=0 and py<=h)
+end
+
 return mouse

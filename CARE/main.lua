@@ -24,15 +24,15 @@ function love.load()
     care.input.keybinds.bind("toggle_crt","f1")
 
     --TEMP:
-    local font = love.graphics.newFont("assets/fonts/pixelsix00.ttf",32)
+    local font = love.graphics.newFont("assets/fonts/pixelsix00.ttf",36)
     love.graphics.setFont(font)
 
     --TEMP:
     test_menu = care.ui.menu:new(40,40,test_atlas,{
         care.ui.button:new(0,0,400,80,t("ui.main_menu.start_game"),nil),
-        care.ui.button:new(0,110,400,80,t("ui.main_menu.save_game",{name="Matthew"}),{on_click = function() love.window.setTitle("HI") end}),
-        care.ui.button:new(0,220,400,80,t("ui.main_menu.exit_game"),nil),
-        care.ui.button:new(0,330,400,80,t("ui.main_menu.exit_game"),nil)
+        care.ui.button:new(0,110,400,80,t("ui.main_menu.save_game",{name="Matthew"}),{on_click = function() love.window.setTitle("Hello there") end}),
+        care.ui.button:new(0,220,400,80,t("ui.main_menu.crt"),{on_click = function() effects_on = not effects_on end}),
+        care.ui.button:new(0,330,400,80,t("ui.main_menu.exit_game"),{on_click = function() love.event.quit() end})
     })
     --test_menu.templates.button.quad_idle = test_menu.atlas:get_quad("btn_idle") --TEMP
     test_menu:set_default_quads("button",{ quad_idle = "btn_idle"}) --TEMP
@@ -48,7 +48,7 @@ function love.load()
     imgBackground = love.graphics.newImage("assets/backgrounds/summer.png") --TEMP
     screen_effect = moonshine(moonshine.effects.scanlines).chain(moonshine.effects.crt).chain(moonshine.effects.chromasep)
     screen_effect.parameters = {
-        chromasep = {angle = 0.5, radius = 6},
+        chromasep = {angle = 0.5, radius = 4},
         scanlines = {thickness = 0.2, width = 4, opacity = 0.25}
     }
 
@@ -67,38 +67,11 @@ function love.load()
     --local c_nslice = nslice:render(200,50)
     --test_menu:set_default_quads("button",{ quad_idle = "nil"})
 
+    care.anim.system.import("assets/anims/heart.png","assets/anims/heart.json",1/15,3)
+
     --TEMP:
-    local anim_atlas = care.gfx.atlas:new("assets/anims/heartburst.png","assets/anims/heartburst.json",4)
-    care.anim.system.import("anim_heartburst",anim_atlas,{
-        "frame01",
-        "frame02",
-        "frame03",
-        "frame04",
-        "frame05",
-        "frame06",
-        "frame07",
-        "frame08",
-        "frame09",
-        "frame10",
-        "frame11",
-        "frame12",
-        "frame13",
-        "frame14",
-        "frame15",
-        "frame16",
-        "frame17",
-        "frame18",
-        "frame19",
-        "frame20",
-        "frame21",
-        "frame22",
-        "frame23"
-    },
-    1/15)--,
-    --function() love.window.setTitle(love.window.getTitle().."1") end)
-    --animinst_blast = care.anim.instance:new(anim_blast)
-    --animinst_blast.on_complete = function() love.window.setTitle(love.window.getTitle().."2") end --TEMP
-    --anim_blast.on_complete = function() love.window.setTitle(love.window.getTitle().."1") end --TEMP
+    --logo_love = love.graphics.newImage("assets/logos/love.png") --TEMP
+    --logo_care = love.graphics.newImage("assets/logos/care.png") --TEMP
 end
 
 function love.resize()
@@ -111,7 +84,7 @@ end
 
 function love.mousepressed(x,y,b)
     test_menu:mousepressed(x,y,b)
-    care.anim.system.spawn("anim_heartburst")--,nil,function() love.window.setTitle(love.window.getTitle().."2") end)
+    care.anim.system.spawn("heartburst",x,y)
 end
 
 function love.mousereleased(x,y,b)
@@ -137,10 +110,13 @@ end
 
 function ddraw() --TEMP
     love.graphics.clear(0,0,0.2,1)
-    love.graphics.draw(imgBackground,0,0,0,2.9,2.9) --TEMP
+    love.graphics.draw(imgBackground,0,0,0,1,1) --TEMP
     test_menu:draw()
     care.anim.system.draw()
     care.input.mouse.draw()
+
+    --love.graphics.draw(logo_love,450,200,0,3,3) --TEMP
+    --love.graphics.draw(logo_care,700,200,0,3,3) --TEMP
 end
 
 function love.draw()
