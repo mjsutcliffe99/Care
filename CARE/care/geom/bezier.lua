@@ -1,4 +1,4 @@
-bezier = {}
+local bezier = {}
 
 -- basic quadratic bezier point
 function bezier.point(t, x0, y0, cx, cy, x1, y1)
