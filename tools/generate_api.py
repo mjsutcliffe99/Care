@@ -62,19 +62,18 @@ def parse(path):
     return entries
 
 def url_path(entry):
-    # Keep URLs lowercase, regardless of PascalCase public class names.
-    # Strip Markdown-style escaping if it accidentally enters an annotation.
-    parts = entry['name'].replace('\\', '').replace(':', '.').split('.')
-    parts = [part.lower() if i < len(parts) - 1 or entry['kind'] in ('module', 'class') else part for i, part in enumerate(parts)]
+    parts = entry['name'].replace(':', '.').split('.')
 
-    # Root module: care -> api/index.md
     if len(parts) == 1:
         return Path('index.md')
 
-    if entry['kind'] in ('module', 'class'):
-        return Path(*parts[1:]) / 'index.md'
+    # Lowercase directory names, preserving function filenames.
+    directories = [part.lower() for part in parts[1:-1]]
 
-    return Path(*parts[1:]).with_suffix('.md')
+    if entry['kind'] in ('module', 'class'):
+        return Path(*directories, parts[-1].lower(), 'index.md')
+
+    return Path(*directories, parts[-1] + '.md')
 
 def overview_tables(entry, known):
     """Build linked member tables from the documented public API."""
