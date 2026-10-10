@@ -1,5 +1,7 @@
 # care.temp.audio.getVolume
 
+<span class="api-kind">Function</span>
+
 Returns the master audio volume.
 
 ## Syntax

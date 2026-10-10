@@ -1,5 +1,7 @@
 # care.temp.audio.setVolume
 
+<span class="api-kind">Function</span>
+
 Sets the master audio volume.
 
 ## Syntax

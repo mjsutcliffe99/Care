@@ -311,7 +311,7 @@ body {
     color: var(--tp-ink);
 
     font-weight: 900;
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 
@@ -321,8 +321,8 @@ body {
 
     padding-bottom: 0.25rem;
 
-    font-size: 2.8rem;
-    line-height: 0.95;
+    font-size: 1.8rem;
+    line-height: 1.15;
 
     letter-spacing: -0.04em;
 
@@ -336,7 +336,7 @@ body {
 
     padding-bottom: 0.15rem;
 
-    font-size: 1.6rem;
+    font-size: 1.35rem;
 
     letter-spacing: 0.02em;
 
@@ -847,4 +847,14 @@ body {
 
 .md-typeset .admonition.warning > .admonition-title {
     background: var(--tp-pink);
+}
+/* API entry type, displayed directly below the page title */
+.md-typeset .api-kind {
+    display: block;
+    margin: -0.25rem 0 0.9rem;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--tp-ink-muted);
 }

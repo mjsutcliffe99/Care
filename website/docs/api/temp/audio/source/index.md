@@ -1,5 +1,7 @@
 # care.temp.audio.Source
 
+<span class="api-kind">Class</span>
+
 A playable audio source.
 
 (This is temporary and just here to test the API docs.)

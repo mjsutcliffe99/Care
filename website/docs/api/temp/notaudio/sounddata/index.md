@@ -1,5 +1,7 @@
 # care.temp.notaudio.SoundData
 
+<span class="api-kind">Class</span>
+
 notaudio sample data. (This is temporary and just here to test the API docs.)
 
 

@@ -1,5 +1,7 @@
 # care
 
+<span class="api-kind">Module</span>
+
 A game engine extension to Love2D.
 
 

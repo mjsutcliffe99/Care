@@ -167,7 +167,8 @@ def render(entry, known):
     name = entry['name']
     def linked(value):
         return LINK.sub(lambda m: f'[{m.group(0)}]({{}})' if False else (f'[`{m.group(0)}`]({relative_link(entry,known[m.group(0)])})' if m.group(0) in known and m.group(0)!=name else f'`{m.group(0)}`'), value)
-    lines = [f'# {name}', '', entry.get('summary', ''), '']
+    kind = entry['kind'].capitalize()
+    lines = [f'# {name}', '', f'<span class="api-kind">{kind}</span>', '', entry.get('summary', ''), '']
     if entry.get('description'):
         lines += [entry['description'], '']
     lines += overview_tables(entry, known)

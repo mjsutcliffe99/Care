@@ -1,5 +1,7 @@
 # care.anim.Animation:setSpeed
 
+<span class="api-kind">Method</span>
+
 Summary.
 
 ## Syntax

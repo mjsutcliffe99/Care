@@ -1,5 +1,7 @@
 # care.temp.notaudio.Source:play
 
+<span class="api-kind">Method</span>
+
 Starts playback.
 
 ## Syntax

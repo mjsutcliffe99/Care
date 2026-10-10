@@ -1,5 +1,7 @@
 # care.anim
 
+<span class="api-kind">Module</span>
+
 Module for creating and managing animations.
 
 

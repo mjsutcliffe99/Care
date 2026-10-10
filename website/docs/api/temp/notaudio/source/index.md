@@ -1,5 +1,7 @@
 # care.temp.notaudio.Source
 
+<span class="api-kind">Class</span>
+
 A playable notaudio source.
 
 (This is temporary and just here to test the API docs.)

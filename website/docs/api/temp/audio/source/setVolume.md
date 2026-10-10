@@ -1,5 +1,7 @@
 # care.temp.audio.Source:setVolume
 
+<span class="api-kind">Method</span>
+
 Sets the volume of the source.
 
 ## Syntax

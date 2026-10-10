@@ -1,5 +1,7 @@
 # care.anim.Animation
 
+<span class="api-kind">Class</span>
+
 Summary.
 
 Description.

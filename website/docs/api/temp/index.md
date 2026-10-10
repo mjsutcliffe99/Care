@@ -1,5 +1,7 @@
 # care.temp
 
+<span class="api-kind">Module</span>
+
 (A temporary fake module just to test the API docs.)
 
 Blah blah blah...

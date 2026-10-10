@@ -1,5 +1,7 @@
 # care.temp.audio.newSource
 
+<span class="api-kind">Function</span>
+
 Creates an audio source. (This is temporary and just here to test the API docs.)
 
 ## Syntax

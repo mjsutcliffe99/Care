@@ -1,5 +1,7 @@
 # care.temp.notaudio.newSource
 
+<span class="api-kind">Function</span>
+
 Creates an notaudio source. (This is temporary and just here to test the API docs.)
 
 ## Syntax

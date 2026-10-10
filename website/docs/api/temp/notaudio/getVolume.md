@@ -1,5 +1,7 @@
 # care.temp.notaudio.getVolume
 
+<span class="api-kind">Function</span>
+
 Returns the master notaudio volume.
 
 ## Syntax

@@ -1,5 +1,7 @@
 # care.temp.notaudio.setVolume
 
+<span class="api-kind">Function</span>
+
 Sets the master notaudio volume.
 
 ## Syntax

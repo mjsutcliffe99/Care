@@ -1,5 +1,7 @@
 # care.temp.notaudio.Source:stop
 
+<span class="api-kind">Method</span>
+
 Stops playback.
 
 ## Syntax

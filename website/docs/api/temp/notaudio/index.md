@@ -1,5 +1,7 @@
 # care.temp.notaudio
 
+<span class="api-kind">Module</span>
+
 [TEMPORARY - JUST FOR TESTING THE API DOCS!]
 
 Blah blah blah.

@@ -1,5 +1,7 @@
 # care.anim.Animation.new
 
+<span class="api-kind">Function</span>
+
 Summary.
 
 ## Syntax
