@@ -11,4 +11,4 @@ Module for creating and managing animations.
 
 | Class | Description |
 | --- | --- |
-| [`Animation`](animation/index.md) | Summary. |
+| [`Animation`](animation/index.md) | A frame-based sprite animation. |

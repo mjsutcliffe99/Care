@@ -2,7 +2,10 @@
 
 <span class="api-kind">Function</span>
 
-Summary.
+Creates a new animation object.
+
+
+Creates an animation object from a sequence of quads referencing regions of a texture atlas.
 
 ## Syntax
 
@@ -14,22 +17,24 @@ animation = care.anim.Animation.new(atlas, quads, w, h, frame_count, speed, on_c
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `atlas` | number | param number 1. |
-| `quads` | number | param number 2. |
-| `w` | number | param number 3. |
-| `h` | number | param number 4. |
-| `frame_count` | number | param number 5. |
-| `speed` | number | param number 6. |
-| `on_complete` | number | param number 7. |
+| `atlas` | love.Drawable | Texture atlas containing the animation frames. |
+| `quads` | love.Quad[] | Sequence of quads defining the animation frames. |
+| `w` | number | Width of each animation frame, in pixels. |
+| `h` | number | Height of each animation frame, in pixels. |
+| `frame_count` | number | Number of frames in the animation. |
+| `speed` | number | Duration of each frame, in seconds. |
+| `on_complete` | function | (Optional) Function called upon completion of the animation (before the on_complete callbacks of its instances - see care.anim.Instance). |
 
 ## Returns
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `animation` | [`care.anim.Animation`](index.md) | description here. |
+| `animation` | [`care.anim.Animation`](index.md) | The newly created animation object. |
 
 ## Example
 
 ```lua
-TODO
+local animation = care.anim.Animation.new(atlas, quads, 64, 64, 8, 0.1, function()
+    score = score + 1
+end)
 ```

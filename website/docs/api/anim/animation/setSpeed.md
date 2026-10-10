@@ -2,7 +2,10 @@
 
 <span class="api-kind">Method</span>
 
-Summary.
+Sets the default playback speed of the animation.
+
+
+Individual instances (see [care.anim.Instance]) of the animation may optionally ignore this and set its own playback speed.
 
 ## Syntax
 
@@ -14,7 +17,7 @@ source:setSpeed(speed)
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `speed` | number | The animation speed. |
+| `speed` | number | Duration of each frame, in seconds. |
 
 ## Returns
 
@@ -23,5 +26,5 @@ Nothing.
 ## Example
 
 ```lua
-TODO
+animation:setSpeed(0.05)
 ```
