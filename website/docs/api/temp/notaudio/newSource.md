@@ -18,7 +18,7 @@ source = care.temp.notaudio.newSource(path)
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `source` | [`care.temp.notaudio.Source`](Source/index.md) | new notaudio source. |
+| `source` | [`care.temp.notaudio.Source`](source/index.md) | new notaudio source. |
 
 ## Example
 

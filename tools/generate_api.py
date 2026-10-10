@@ -62,7 +62,10 @@ def parse(path):
     return entries
 
 def url_path(entry):
-    parts = entry['name'].replace(':', '.').split('.')
+    # Keep URLs lowercase, regardless of PascalCase public class names.
+    # Strip Markdown-style escaping if it accidentally enters an annotation.
+    parts = entry['name'].replace('\\', '').replace(':', '.').split('.')
+    parts = [part.lower() if i < len(parts) - 1 or entry['kind'] in ('module', 'class') else part for i, part in enumerate(parts)]
 
     # Root module: care -> api/index.md
     if len(parts) == 1:

@@ -9,4 +9,4 @@ Module for creating and managing animations.
 
 | Class | Description |
 | --- | --- |
-| [`Animation`](Animation/index.md) | Summary. |
+| [`Animation`](animation/index.md) | Summary. |

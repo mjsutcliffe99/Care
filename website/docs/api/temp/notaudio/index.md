@@ -16,5 +16,5 @@ Blah blah blah.
 
 | Class | Description |
 | --- | --- |
-| [`SoundData`](SoundData/index.md) | notaudio sample data. (This is temporary and just here to test the API docs.) |
-| [`Source`](Source/index.md) | A playable notaudio source. |
+| [`SoundData`](sounddata/index.md) | notaudio sample data. (This is temporary and just here to test the API docs.) |
+| [`Source`](source/index.md) | A playable notaudio source. |

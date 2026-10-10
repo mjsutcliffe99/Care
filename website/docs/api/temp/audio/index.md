@@ -18,5 +18,5 @@ And even more blah blah blah
 
 | Class | Description |
 | --- | --- |
-| [`SoundData`](SoundData/index.md) | Audio sample data. (This is temporary and just here to test the API docs.) |
-| [`Source`](Source/index.md) | A playable audio source. |
+| [`SoundData`](sounddata/index.md) | Audio sample data. (This is temporary and just here to test the API docs.) |
+| [`Source`](source/index.md) | A playable audio source. |

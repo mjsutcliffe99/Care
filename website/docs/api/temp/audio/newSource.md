@@ -18,7 +18,7 @@ source = care.temp.audio.newSource(path)
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `source` | [`care.temp.audio.Source`](Source/index.md) | new audio source. |
+| `source` | [`care.temp.audio.Source`](source/index.md) | new audio source. |
 
 ## Example
 
