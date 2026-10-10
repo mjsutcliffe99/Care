@@ -97,7 +97,10 @@ def overview_tables(entry, known):
             ),
         ]
     elif entry['kind'] == 'class':
-        groups = [('Methods', 'method', lambda e: e['name'].rsplit(':', 1)[0] == name)]
+        groups = [
+            ('Functions', 'function', lambda e: e['name'].rsplit('.', 1)[0] == name),
+            ('Methods', 'method', lambda e: e['name'].rsplit(':', 1)[0] == name),
+        ]
     else:
         return sections
     for heading, kind, belongs in groups:
@@ -269,16 +272,30 @@ def main():
                             f'({url_path(c).as_posix()})'
                         )
 
+                        # Show class-level functions (including constructors)
+                        # alongside instance methods in the navigation.
+                        class_functions = [
+                            e for e in entries
+                            if e['kind'] == 'function'
+                            and e['name'].rsplit('.', 1)[0] == c['name']
+                        ]
                         methods = [
                             e for e in entries
                             if e['kind'] == 'method'
-                            and e['name'].startswith(c['name'] + ':')
+                            and e['name'].rsplit(':', 1)[0] == c['name']
                         ]
 
-                        for e in methods:
+                        for e in sorted(class_functions, key=lambda e: e['name'].lower()):
                             lines.append(
                                 f'{"    " * (depth + 3)}'
-                                f'- [{e["name"].split(":")[-1]}]'
+                                f'- [{e["name"].rsplit(".", 1)[-1]}]'
+                                f'({url_path(e).as_posix()})'
+                            )
+
+                        for e in sorted(methods, key=lambda e: e['name'].lower()):
+                            lines.append(
+                                f'{"    " * (depth + 3)}'
+                                f'- [{e["name"].rsplit(":", 1)[-1]}]'
                                 f'({url_path(e).as_posix()})'
                             )
 

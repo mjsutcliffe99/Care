@@ -5,8 +5,8 @@ Module for creating and managing animations.
 
 (TODO: Description here.)
 
-## Submodules
+## Classes
 
-| Submodule | Description |
+| Class | Description |
 | --- | --- |
-| [`animation`](animation/index.md) | TODO. |
+| [`Animation`](Animation/index.md) | Summary. |

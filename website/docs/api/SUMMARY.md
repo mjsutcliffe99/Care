@@ -2,7 +2,10 @@
 
 - [Overview](index.md)
 - [anim](anim/index.md)
-    - [animation](anim/animation/index.md)
+    - [Classes](anim/index.md)
+        - [Animation](anim/Animation/index.md)
+            - [new](anim/Animation/new.md)
+            - [setSpeed](anim/Animation/setSpeed.md)
 - [temp](temp/index.md)
     - [audio](temp/audio/index.md)
         - [Functions](temp/audio/index.md)
