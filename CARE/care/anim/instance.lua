@@ -1,12 +1,27 @@
--- Instance of an animation
+--- @class care.anim.Instance
+--- @summary An independent instance of an animation defined by [care.anim.Animation].
+--- @description
+--- Represents an individual instance of an animation defined by [care.anim.Animation],
+--- with its own independent playback state, position, and other settings.
 local Instance = {}
 Instance.__index = Instance
 
-function Instance:new(anim,repeats,speed,on_complete)
+--- @function care.anim.Instance.new
+--- @summary Creates a new instance of an animation.
+--- @description
+--- Creates a new instance of the animation provided by a care.anim.Animation object.
+--- @param anim care.anim.Animation Reference animation that this instance plays.
+--- @param repeats boolean (Optional) Whether the animation repeats after completion (or otherwise is deleted). Defaults to false if not specified.
+--- @param speed number (Optional) Playback speed of the animation, measured in seconds per frame. If not specified, the default speed specified in the care.anim.Animation object will be used.
+--- @param on_complete function (Optional) Function called upon completion of this instance of the animation (after the on_complete callback of its associated care.anim.Animation).
+--- @return animation care.anim.Animation The newly created animation object.
+--- @example
+--- TODO
+function Instance.new(anim,repeats,speed,on_complete)
     local self = setmetatable({
-        anim         = anim,                              -- animation reference (of type Anim)
-        repeats      = repeats~=nil and repeats or false, -- whether the animation repeats on complete (or is deleted)
-        speed        = speed or anim.speed,               -- seconds per frame (overrides anim speed if non-nil)
+        anim         = anim,
+        repeats      = repeats~=nil and repeats or false,
+        speed        = speed or anim.speed,
         frame        = 1,                                 -- current frame number (1-indexed)
         t            = 0,                                 -- frame timer
         x            = 0,                                 -- centred x-position

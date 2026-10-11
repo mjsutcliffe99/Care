@@ -5,7 +5,7 @@
 Sets the default playback speed of the animation.
 
 
-Individual instances (see [care.anim.Instance]) of the animation may optionally ignore this and set its own playback speed.
+An individual instance (see [care.anim.Instance](../instance/index.md)) of the animation may optionally override this with its own playback speed.
 
 ## Syntax
 

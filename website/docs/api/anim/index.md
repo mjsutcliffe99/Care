@@ -7,8 +7,15 @@ Module for creating and managing animations.
 
 (TODO: Description here.)
 
+## Submodules
+
+| Submodule | Description |
+| --- | --- |
+| [`system`](system/index.md) | TODO. |
+
 ## Classes
 
 | Class | Description |
 | --- | --- |
 | [`Animation`](animation/index.md) | A frame-based sprite animation. |
+| [`Instance`](instance/index.md) | An independent instance of an animation defined by [care.anim.Animation](animation/index.md). |

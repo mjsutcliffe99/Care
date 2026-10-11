@@ -6,7 +6,7 @@
 local anim = {}
 
 anim.Animation = require "care.anim.animation"
-anim.instance  = require "care.anim.instance"
+anim.Instance  = require "care.anim.instance"
 anim.system    = require "care.anim.system"
 
 return anim

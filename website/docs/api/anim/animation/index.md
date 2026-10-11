@@ -7,7 +7,7 @@ A frame-based sprite animation.
 
 Represents an animation defined as a sequence of frames drawn from a texture atlas.
 The animation may then be drawn in individual instances, with their own independently
-controlled playback states and settings, via [care.anim.Instance].
+controlled playback states and settings, via [care.anim.Instance](../instance/index.md).
 
 Animation objects are created using [care.anim.Animation.new](new.md).
 
@@ -23,4 +23,5 @@ Not to be confused with its parent module, [care.anim](../index.md).
 
 | Method | Description |
 | --- | --- |
+| [`Animation:getSpeed`](getSpeed.md) | Returns the default playback speed of the animation. |
 | [`Animation:setSpeed`](setSpeed.md) | Sets the default playback speed of the animation. |

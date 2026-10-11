@@ -1,3 +1,8 @@
+--- @module care.anim.system
+--- @summary TODO.
+--- @description
+--- Blah blah blah.
+
 local animation = require "care.anim.animation"
 local instance  = require "care.anim.instance"
 local atlas     = require "care.gfx.atlas"
@@ -7,13 +12,6 @@ local system = {}
 
 system.animations = {}
 system.instances  = {}
-
--- import an animation
---[[function system.import(anim_name,atlas,quad_names,speed,on_complete)
-    local new_anim = animation:new(atlas,quad_names,speed,on_complete)
-    system.animations[anim_name] = new_anim
-    return new_anim
-end]]
 
 -- import an animation
 function system.import_single(anim_name,anim_atlas,x,y,w,h,frame_count,speed,on_complete)
@@ -26,8 +24,18 @@ function system.import_single(anim_name,anim_atlas,x,y,w,h,frame_count,speed,on_
     return new_anim
 end
 
--- import all animations from a json/png file pair
+--- @function care.anim.system.import
+--- @summary Imports all animations from a json/png file pair
+--- @description TODO: Explain the json format!
+--- @param image_path string Path to the image file that contains the frames of one or more animations.
+--- @param reg_path string Path to the json file that describes the animations.
+--- @param speed number Playback speed of the animations, measured in seconds per frame.
+--- @param scale number (Optional) Scaling factor applied the imported animation frames. (Useful for upscaling pixel art.) Defaults to 1 (i.e. real-size).
+--- @return nil Nothing.
+--- @example
+--- TODO
 function system.import(image_path,reg_path,speed,scale)
+    scale = scale or 1
     local anim_atlas = atlas:new(image_path,nil,scale)
     local register = json.decode(love.filesystem.read(reg_path))
     for name,coords in pairs(register) do -- for each animation
