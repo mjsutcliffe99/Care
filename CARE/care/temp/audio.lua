@@ -30,7 +30,27 @@ end
 function audio.newSource(path)
 end
 
---- @class care.temp.audio.Source
+--- @class care.temp.audio.Supersource
+--- @summary A playable audio Supersource.
+--- @description (This is temporary and just here to test the API docs.)
+
+--- @method care.temp.audio.Supersource:play
+--- @summary Starts playback.
+--- @return nil Nothing.
+--- @example
+--- music:play()
+function Supersource:play()
+end
+
+--- @method care.temp.audio.Supersource:delete
+--- @summary Deleted supersource.
+--- @return nil Nothing.
+--- @example
+--- music:delete()
+function Supersource:delete()
+end
+
+--- @class care.temp.audio.Source:care.temp.audio.Supersource
 --- @summary A playable audio source.
 --- @description (This is temporary and just here to test the API docs.)
 

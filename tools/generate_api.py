@@ -23,7 +23,13 @@ def parse(path):
                     active_field = None
                     tag, val = m.group(1), (m.group(2) or '').strip()
                     if tag in ('function', 'method', 'class', 'module'):
-                        entry['kind'], entry['name'] = tag, val
+                        entry['kind'] = tag
+                        if tag == 'class' and ':' in val:
+                            child, parent = val.split(':', 1)
+                            entry['name'] = child.strip()
+                            entry['parent'] = parent.strip()
+                        else:
+                            entry['name'] = val
                     elif tag == 'summary':
                         entry['summary'] = val
                     elif tag == 'description':
@@ -75,60 +81,96 @@ def url_path(entry):
 
     return Path(*directories, parts[-1] + '.md')
 
+def class_ancestors(entry, known):
+    """Return immediate parent first, stopping at missing parents or cycles."""
+    ancestors, seen = [], {entry['name']}
+    parent = entry.get('parent')
+    while parent and parent not in seen:
+        seen.add(parent)
+        ancestor = known.get(parent)
+        if ancestor is None or ancestor['kind'] != 'class':
+            break
+        ancestors.append(ancestor)
+        parent = ancestor.get('parent')
+    return ancestors
+
+
+def own_members(owner, known, kind):
+    separator = ':' if kind == 'method' else '.'
+    return [e for e in known.values()
+            if e['kind'] == kind
+            and separator in e['name']
+            and e['name'].rsplit(separator, 1)[0] == owner['name']]
+
+
+def effective_members(entry, known, kind):
+    """Subclass definitions shadow inherited members of the same kind/name."""
+    result = {}
+    for owner in [entry] + class_ancestors(entry, known):
+        for member in own_members(owner, known, kind):
+            short = member['name'].rsplit(':' if kind == 'method' else '.', 1)[-1]
+            result.setdefault(short, member)
+    return sorted(result.values(), key=lambda e: e['name'].rsplit(':', 1)[-1].rsplit('.', 1)[-1].lower())
+
+
 def overview_tables(entry, known):
-    """Build linked member tables from the documented public API."""
+    """Build linked member tables, including inherited class members."""
     name = entry['name']
     sections = []
     if entry['kind'] == 'module':
         groups = [
-            (
-                'Submodules',
-                'module',
-                lambda e: e['name'] != name
-                and e['name'].rsplit('.', 1)[0] == name
-            ),
-            (
-                'Functions',
-                'function',
-                lambda e: e['name'].rsplit('.', 1)[0] == name
-            ),
-            (
-                'Classes',
-                'class',
-                lambda e: e['name'].rsplit('.', 1)[0] == name
-            ),
+            ('Submodules', 'module', [e for e in known.values()
+             if e['kind'] == 'module' and e['name'] != name
+             and e['name'].rsplit('.', 1)[0] == name]),
+            ('Functions', 'function', [e for e in known.values()
+             if e['kind'] == 'function' and e['name'].rsplit('.', 1)[0] == name]),
+            ('Classes', 'class', [e for e in known.values()
+             if e['kind'] == 'class' and e['name'].rsplit('.', 1)[0] == name]),
         ]
     elif entry['kind'] == 'class':
         groups = [
-            ('Functions', 'function', lambda e: e['name'].rsplit('.', 1)[0] == name),
-            ('Methods', 'method', lambda e: e['name'].rsplit(':', 1)[0] == name),
+            ('Functions', 'function', effective_members(entry, known, 'function')),
+            ('Methods', 'method', effective_members(entry, known, 'method')),
         ]
     else:
         return sections
-    for heading, kind, belongs in groups:
-        members = sorted((e for e in known.values() if e['kind'] == kind and belongs(e)), key=lambda e: e['name'].lower())
+    for heading, kind, members in groups:
+        members = sorted(members, key=lambda e: e['name'].lower())
         if not members:
             continue
-        label = {
-            'Submodules': 'Submodule',
-            'Functions': 'Function',
-            'Classes': 'Class',
-            'Methods': 'Method'
-        }.get(heading, heading)
-        sections += [
-            f'## {heading}',
-            '',
-            f'| {label} | Description |',
-            '| --- | --- |'
-        ]
+        label = {'Submodules': 'Submodule', 'Functions': 'Function',
+                 'Classes': 'Class', 'Methods': 'Method'}.get(heading, heading)
+        sections += [f'## {heading}', '', f'| {label} | Description |', '| --- | --- |']
         for member in members:
-            short = member['name'].split(':')[-1].split('.')[-1]
+            if entry['kind'] == 'class':
+                display = member['name'].rsplit('.', 2)[-2] + '.' + member['name'].rsplit('.', 1)[-1] if kind == 'function' else member['name'].rsplit('.', 1)[-1]
+            else:
+                display = member['name'].split(':')[-1].split('.')[-1]
             desc = member.get('summary', '').replace('|', r'\|').replace('\n', ' ')
-            sections.append(f'| [`{short}`]({relative_link(entry, member)}) | {desc} |')
-        #if not members:
-        #    sections.append('| — | None documented. |')
+            sections.append(f'| [`{display}`]({relative_link(entry, member)}) | {desc} |')
         sections.append('')
     return sections
+
+
+def inheritance_sections(entry, known):
+    if entry['kind'] != 'class':
+        return []
+    lines = []
+    ancestors = class_ancestors(entry, known)
+    if ancestors:
+        lines += ['## Superclasses', '']
+        lines += [f'- [`{ancestor["name"]}`]({relative_link(entry, ancestor)})'
+                  for ancestor in ancestors]
+        lines.append('')
+    elif entry.get('parent'):
+        lines += ['## Superclasses', '', f'- `{entry["parent"]}` (not documented)', '']
+    children = sorted((e for e in known.values() if e['kind'] == 'class'
+                       and e.get('parent') == entry['name']), key=lambda e: e['name'].lower())
+    if children:
+        lines += ['## Subclasses', '']
+        lines += [f'- [`{child["name"]}`]({relative_link(entry, child)})' for child in children]
+        lines.append('')
+    return lines
 
 def syntax(entry):
     """Build a public-facing call signature from documented names and parameters."""
@@ -171,6 +213,7 @@ def render(entry, known):
     lines = [f'# {name}', '', f'<span class="api-kind">{kind}</span>', '', entry.get('summary', ''), '']
     if entry.get('description'):
         lines += [entry['description'], '']
+    lines += inheritance_sections(entry, known)
     lines += overview_tables(entry, known)
     if entry['kind'] in ('function','method'):
         lines += ['## Syntax', '', '```lua', syntax(entry), '```', '']
@@ -186,9 +229,24 @@ def render(entry, known):
             lines += [f'| `{n or "result"}` | {linked(t)} | {d} |' for n, t, d in returns]
         else:
             lines += ['Nothing.']
-    if entry['fields']:
+    fields = []
+    if entry['kind'] == 'class':
+        seen_fields = set()
+        for owner in [entry] + class_ancestors(entry, known):
+            for p, t, d in owner['fields']:
+                if p not in seen_fields:
+                    seen_fields.add(p)
+                    fields.append((owner, p, t, d))
+    else:
+        fields = [(entry, p, t, d) for p, t, d in entry['fields']]
+    if fields:
         lines += ['', '## Fields', '', '| Name | Type | Description |', '| --- | --- | --- |']
-        lines += [f'| `{p}` | {linked(t)} | {d} |' for p,t,d in entry['fields']]
+        for owner, p, t, d in fields:
+            display = f'{owner["name"].rsplit(".", 1)[-1]}.{p}' if entry['kind'] == 'class' else p
+            field_label = f'`{display}`'
+            if owner is not entry:
+                field_label = f'[{field_label}]({relative_link(entry, owner)}#fields)'
+            lines.append(f'| {field_label} | {linked(t)} | {d} |')
     if entry['example']:
         lines += ['', '## Example', '', '```lua', *entry['example'], '```']
     markdown = '\n'.join(lines).rstrip() + '\n'

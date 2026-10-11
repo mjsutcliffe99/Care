@@ -6,10 +6,15 @@ A playable audio source.
 
 (This is temporary and just here to test the API docs.)
 
+## Superclasses
+
+- [`care.temp.audio.Supersource`](../supersource/index.md)
+
 ## Methods
 
 | Method | Description |
 | --- | --- |
-| [`play`](play.md) | Starts playback. |
-| [`setVolume`](setVolume.md) | Sets the volume of the source. |
-| [`stop`](stop.md) | Stops playback. |
+| [`Source:play`](play.md) | Starts playback. |
+| [`Source:setVolume`](setVolume.md) | Sets the volume of the source. |
+| [`Source:stop`](stop.md) | Stops playback. |
+| [`Supersource:delete`](../supersource/delete.md) | Deleted supersource. |

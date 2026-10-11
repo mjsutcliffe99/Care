@@ -9,5 +9,5 @@ Audio sample data. (This is temporary and just here to test the API docs.)
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `sampleRate` | number | Samples per second. |
-| `channels` | number | Number of audio channels. |
+| `SoundData.sampleRate` | number | Samples per second. |
+| `SoundData.channels` | number | Number of audio channels. |

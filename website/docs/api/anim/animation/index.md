@@ -17,10 +17,10 @@ Not to be confused with its parent module, [care.anim](../index.md).
 
 | Function | Description |
 | --- | --- |
-| [`new`](new.md) | Creates a new animation object. |
+| [`Animation.new`](new.md) | Creates a new animation object. |
 
 ## Methods
 
 | Method | Description |
 | --- | --- |
-| [`setSpeed`](setSpeed.md) | Sets the default playback speed of the animation. |
+| [`Animation:setSpeed`](setSpeed.md) | Sets the default playback speed of the animation. |

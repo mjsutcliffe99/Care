@@ -10,6 +10,6 @@ A playable notaudio source.
 
 | Method | Description |
 | --- | --- |
-| [`play`](play.md) | Starts playback. |
-| [`setVolume`](setVolume.md) | Sets the volume of the source. |
-| [`stop`](stop.md) | Stops playback. |
+| [`Source:play`](play.md) | Starts playback. |
+| [`Source:setVolume`](setVolume.md) | Sets the volume of the source. |
+| [`Source:stop`](stop.md) | Stops playback. |
