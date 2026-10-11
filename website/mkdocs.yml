@@ -8,6 +8,18 @@ nav:
 
 theme:
   name: material
+  logo: assets/care-logo.png
+  favicon: assets/care-logo.png
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
   custom_dir: overrides
 
   features:
@@ -17,7 +29,7 @@ theme:
     - content.code.copy
 
 extra_css:
-  - stylesheets/tadpoly.css
+  - stylesheets/care.css
 
 plugins:
   - search

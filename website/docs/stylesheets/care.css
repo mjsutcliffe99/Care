@@ -1,0 +1,235 @@
+/* CÄRE — MkDocs Material theme
+   Brand colours sampled from the supplied CÄRE logo:
+   coral #FD7461 | apricot #FAAD73
+   Add under extra_css: [stylesheets/care.css]
+*/
+
+:root {
+  --care-coral: #fd7461;
+  --care-apricot: #faad73;
+  --care-ink: #302a29;
+  --care-paper: #fffaf6;
+  --care-code: #282429;
+  --care-radius: .55rem;
+}
+
+/* Light mode */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #fd7461;
+  --md-primary-fg-color--light: #faad73;
+  --md-primary-fg-color--dark: #e65c4b;
+  --md-accent-fg-color: #c94e3f;
+  --md-accent-fg-color--transparent: #fd74611c;
+  --md-default-bg-color: #fffaf6;
+  --md-default-fg-color: #302a29;
+  --md-default-fg-color--light: #6d625e;
+  --md-default-fg-color--lighter: #968780;
+  --md-default-fg-color--lightest: #e8dcd5;
+  --md-typeset-color: #302a29;
+  --md-typeset-a-color: #c94e3f;
+  --md-code-bg-color: #f5ece6;
+  --md-code-fg-color: #493e3a;
+  --md-footer-bg-color: #302a29;
+  --md-footer-bg-color--dark: #242021;
+  --care-border: #e9dcd4;
+  --care-surface: #fff4ec;
+  --care-hover: #ffe7d7;
+  --care-header-text: #2d2423;
+}
+
+/* Dark mode */
+[data-md-color-scheme="slate"] {
+  --md-hue: 12;
+  --md-primary-fg-color: #fd7461;
+  --md-primary-fg-color--light: #faad73;
+  --md-primary-fg-color--dark: #e65c4b;
+  --md-accent-fg-color: #faad73;
+  --md-accent-fg-color--transparent: #faad7320;
+  --md-default-bg-color: #201d21;
+  --md-default-fg-color: #f6ede8;
+  --md-default-fg-color--light: #c4b5af;
+  --md-default-fg-color--lighter: #9d8e89;
+  --md-default-fg-color--lightest: #51444a;
+  --md-typeset-color: #f6ede8;
+  --md-typeset-a-color: #ffac91;
+  --md-code-bg-color: #302b30;
+  --md-code-fg-color: #f5e9e3;
+  --md-footer-bg-color: #171518;
+  --md-footer-bg-color--dark: #121114;
+  --care-border: #473c40;
+  --care-surface: #2b262b;
+  --care-hover: #413138;
+  --care-header-text: #302a29;
+}
+
+/* Typography */
+body, .md-typeset, .md-nav, .md-header, .md-tabs {
+  font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.md-typeset code, .md-typeset pre, .highlight, .md-typeset kbd {
+  font-family: "Cascadia Code", "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+}
+.md-typeset { font-size: .79rem; line-height: 1.7; }
+.md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4 {
+  font-family: inherit;
+  font-weight: 650;
+  letter-spacing: -.025em;
+  text-transform: none;
+}
+.md-typeset h1 { color: var(--md-default-fg-color); font-size: 2rem; margin-bottom: .45em; }
+.md-typeset h2 { color: var(--md-default-fg-color); font-size: 1.35rem; padding-bottom: .4em; border-bottom: 1px solid var(--care-border); }
+.md-typeset h3 { font-size: 1.1rem; }
+.md-typeset a { text-decoration: none; text-underline-offset: .18em; }
+.md-typeset a:hover { text-decoration: underline; }
+
+/* The generated API heading is made from individually linked segments.
+   Keep each segment visually identical to its surrounding heading,
+   regardless of whether the generator uses Markdown or HTML links. */
+.md-typeset h1 a,
+.md-typeset h1 a code,
+.md-typeset h1 code a,
+.md-typeset h1 code {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  letter-spacing: inherit !important;
+  line-height: inherit;
+  text-transform: none !important;
+  background: transparent !important;
+  border: 0;
+  padding: 0 !important;
+  color: inherit;
+  box-shadow: none;
+}
+.md-typeset h1 a:hover { color: var(--md-typeset-a-color); text-decoration: underline; }
+
+/* Header and navigation */
+.md-header { background: var(--care-coral); color: var(--care-header-text); box-shadow: 0 1px 0 #00000012; }
+.md-header__title { font-weight: 750; letter-spacing: -.025em; }
+.md-header__button, .md-header__topic, .md-search__icon { color: var(--care-header-text); }
+.md-tabs { background: #e96654; }
+.md-tabs__link { color: #fff; opacity: .85; }
+.md-tabs__link--active, .md-tabs__link:hover { opacity: 1; }
+.md-nav__title { font-weight: 700; }
+.md-nav__link { border-radius: .3rem; transition: color .15s ease, background .15s ease; }
+.md-nav__link:hover { color: var(--md-accent-fg-color); }
+.md-nav__link--active { color: var(--md-typeset-a-color); font-weight: 650; }
+.md-sidebar__scrollwrap { scrollbar-color: var(--care-border) transparent; }
+.md-search__form { border-radius: .45rem; }
+
+/* Main page surfaces */
+.md-main { background: var(--md-default-bg-color); }
+.md-content__inner { padding-bottom: 2rem; }
+.md-typeset hr { border-bottom-color: var(--care-border); }
+.md-typeset blockquote { border-left: .2rem solid var(--care-apricot); }
+
+/* API kind labels generated as <span class="api-kind">Class</span> */
+.md-typeset .api-kind {
+  display: inline-block;
+  margin: .1rem 0 .75rem;
+  padding: .15rem .55rem;
+  border-radius: 999px;
+  background: var(--care-surface);
+  border: 1px solid var(--care-border);
+  color: var(--md-typeset-a-color);
+  font-family: inherit;
+  font-size: .65rem;
+  font-weight: 750;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+/* API tables */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--care-border);
+  border-radius: var(--care-radius);
+  overflow: hidden;
+  box-shadow: none;
+  font-size: .75rem;
+}
+.md-typeset table:not([class]) th {
+  background: var(--care-surface);
+  color: var(--md-default-fg-color);
+  font-weight: 700;
+  border-bottom: 1px solid var(--care-border);
+}
+.md-typeset table:not([class]) td { border-top-color: var(--care-border); }
+.md-typeset table:not([class]) tr:hover { background: var(--care-surface); }
+.md-typeset table:not([class]) td:first-child { white-space: nowrap; }
+.md-typeset table:not([class]) td code {
+  font-size: .88em;
+  color: var(--md-typeset-a-color);
+  background: transparent;
+  padding: 0;
+}
+
+/* Code */
+.md-typeset pre > code { border-radius: var(--care-radius); }
+.md-typeset .highlight, .md-typeset pre { border-radius: var(--care-radius); }
+.md-typeset .highlight pre, .md-typeset pre > code { background: var(--md-code-bg-color); }
+.md-typeset :not(pre) > code {
+  border-radius: .25rem;
+  padding: .08em .3em;
+}
+.md-clipboard { color: var(--md-default-fg-color--light); }
+.md-clipboard:hover { color: var(--md-accent-fg-color); }
+
+/* Admonitions */
+.md-typeset .admonition, .md-typeset details {
+  border-radius: var(--care-radius);
+  box-shadow: none;
+}
+
+/* Buttons (for landing / getting-started pages) */
+.md-typeset .md-button {
+  border-radius: .45rem;
+  font-weight: 650;
+  transition: background .15s ease, color .15s ease;
+}
+.md-typeset .md-button--primary {
+  background: var(--care-coral);
+  border-color: var(--care-coral);
+  color: #2d2423;
+}
+.md-typeset .md-button--primary:hover {
+  background: var(--care-apricot);
+  border-color: var(--care-apricot);
+  color: #2d2423;
+}
+
+/* Footer */
+.md-footer { border-top: 1px solid var(--care-border); }
+
+/* Narrow screens: keep long API names and tables usable. */
+@media (max-width: 44.984375em) {
+  .md-typeset h1 { font-size: 1.55rem; overflow-wrap: anywhere; }
+  .md-typeset { font-size: .75rem; }
+  .md-typeset table:not([class]) td:first-child { white-space: normal; }
+}
+
+/* CÄRE header logo */
+
+.md-header__button.md-logo img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+}
+
+/* Replace header title with CÄRE wordmark */
+
+.md-header__title {
+    display: flex;
+    align-items: center;
+}
+
+.care-wordmark {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+}
+
+.care-wordmark img {
+    width: 135px;
+    height: 45px;
+    object-fit: contain;
+}
