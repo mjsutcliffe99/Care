@@ -205,12 +205,65 @@ def link_api_references(text, entry, known):
     )
 
 
+def relative_page_link(src, target):
+    """Relative public URL for raw HTML links (MkDocs directory URLs).
+
+    Unlike Markdown links, href attributes in HTML are not rewritten by
+    MkDocs. A page generated from foo.md is served at foo/, while a page
+    generated from foo/index.md is served at foo/.
+    """
+    import posixpath
+
+    def page_directory(entry):
+        path = url_path(entry).as_posix()
+        if path == 'index.md':
+            return '.'
+        if path.endswith('/index.md'):
+            return path[:-len('/index.md')]
+        if path.endswith('.md'):
+            return path[:-3].rstrip('/')
+        return path
+
+    source_dir = page_directory(src)
+    target_dir = page_directory(target)
+    relative = posixpath.relpath(target_dir, source_dir)
+    return './' if relative == '.' else relative + '/'
+
+
+def linked_title(entry, known):
+    """Build a breadcrumb-like H1 with links to documented API ancestors."""
+    name = entry['name']
+    # A colon separates an instance method from its declaring class.
+    owner, sep, method = name.partition(':')
+    parts = owner.split('.')
+    result = []
+    for i, part in enumerate(parts):
+        qualified = '.'.join(parts[:i + 1])
+        target = known.get(qualified)
+        if target is not None:
+            label = (f'<a href="{relative_page_link(entry, target)}" '
+                     f'style="font-family: inherit !important; font-size: inherit; '
+                     f'font-weight: inherit; text-transform: inherit;">{part}</a>')
+        else:
+            label = part
+        result.append(label)
+    title = '.'.join(result)
+    if sep:
+        target = known.get(name)
+        if target is not None:
+            method = (f'<a href="{relative_page_link(entry, target)}" '
+                      f'style="font-family: inherit !important; font-size: inherit; '
+                      f'font-weight: inherit; text-transform: inherit;">{method}</a>')
+        title += ':' + method
+    return title
+
+
 def render(entry, known):
     name = entry['name']
     def linked(value):
         return LINK.sub(lambda m: f'[{m.group(0)}]({{}})' if False else (f'[`{m.group(0)}`]({relative_link(entry,known[m.group(0)])})' if m.group(0) in known and m.group(0)!=name else f'`{m.group(0)}`'), value)
     kind = entry['kind'].capitalize()
-    lines = [f'# {name}', '', f'<span class="api-kind">{kind}</span>', '', entry.get('summary', ''), '']
+    lines = [f'# {linked_title(entry, known)}', '', f'<span class="api-kind">{kind}</span>', '', entry.get('summary', ''), '']
     if entry.get('description'):
         lines += [entry['description'], '']
     lines += inheritance_sections(entry, known)

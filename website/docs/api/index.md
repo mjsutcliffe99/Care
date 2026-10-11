@@ -1,4 +1,4 @@
-# care
+# <a href="./" style="font-family: inherit !important; font-size: inherit; font-weight: inherit; text-transform: inherit;">care</a>
 
 <span class="api-kind">Module</span>
 

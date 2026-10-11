@@ -1,4 +1,4 @@
-# care.temp
+# <a href="../" style="font-family: inherit !important; font-size: inherit; font-weight: inherit; text-transform: inherit;">care</a>.<a href="./" style="font-family: inherit !important; font-size: inherit; font-weight: inherit; text-transform: inherit;">temp</a>
 
 <span class="api-kind">Module</span>
 
