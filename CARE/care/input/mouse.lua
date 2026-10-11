@@ -36,7 +36,7 @@ function mouse.is_inside_rect(x, y, w, h, r, sx, sy, ox, oy)
     local oy = oy or 0
     local mx, my = mouse.get_position()
 
-    if (ox==0 and oy==0) then return (mx>=x and mx<=x+w*sx and my>=0 and my<=y+h*sy) end
+    if (ox==0 and oy==0) then return (mx>=x and mx<=x+w*sx and my>=y and my<=y+h*sy) end
 
     -- move mouse into object-centered coordinates
     local dx = mx - x

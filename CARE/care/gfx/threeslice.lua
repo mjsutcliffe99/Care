@@ -14,9 +14,7 @@ function Threeslice:new(atlas,quad_names,is_vertical,max_length)
             r  = atlas:get_quad(quad_names.r)
         },
         is_vertical = is_vertical, -- horizontal vs vertical
-        max_length  = max_length,  -- Not required (can be nil) but is useful for more efficient rendering (of frequently resized threeslices) when a max_length is known
-        breadth     = nil,         -- width for vertical threeslices and height for horizontal threeslices
-        canvas      = nil
+        breadth     = nil         -- width for vertical threeslices and height for horizontal threeslices
     }, Threeslice)
 
     -- Determine breadth and (if max_length is known) initialise canvas:
@@ -25,19 +23,17 @@ function Threeslice:new(atlas,quad_names,is_vertical,max_length)
         local _, _, c_w, _ = self.quads.c:getViewport()
         local _, _, b_w, _ = self.quads.b:getViewport()
         self.breadth = math.max(t_w,c_w,b_w)
-        if (self.max_length~=nil) then self.canvas = love.graphics.newCanvas(self.breadth,max_length) end
     else
         local _, _, _, l_h = self.quads.l:getViewport()
         local _, _, _, c_h = self.quads.c:getViewport()
         local _, _, _, r_h = self.quads.r:getViewport()
         self.breadth = math.max(l_h,c_h,r_h)
-        if (self.max_length~=nil) then self.canvas = love.graphics.newCanvas(max_length,self.breadth) end
     end
 
     return self
 end
 
-function Threeslice:render_horizontal(w)
+function Threeslice:render_horizontal(canvas,w,max_length)
     local quads        = self.quads
     local _, _, l_w, _ = quads.l:getViewport()
     local _, _, c_w, _ = quads.c:getViewport()
@@ -47,17 +43,18 @@ function Threeslice:render_horizontal(w)
     local c_w_scale    = in_w/c_w
     
     local prevCanvas = love.graphics.getCanvas()
-    if (self.max_length==nil) then self.canvas = love.graphics.newCanvas(w,self.breadth) end -- resize canvas (unless max_length is known)
-    love.graphics.setCanvas(self.canvas)
+    if (canvas==nil) then canvas = love.graphics.newCanvas(max_length or w,self.breadth)
+    elseif (max_length and max_length~=canvas:getWidth()) then canvas = love.graphics.newCanvas(max_length,self.breadth) end
+    love.graphics.setCanvas(canvas)
     love.graphics.clear(0,0,0,0)
     love.graphics.draw(self.atlas.image, quads.l, 0, 0)
     love.graphics.draw(self.atlas.image, quads.c, l_w, 0, 0, c_w_scale, 1)
     love.graphics.draw(self.atlas.image, quads.r, l_w+in_w, 0)
     love.graphics.setCanvas(prevCanvas)
-    return self.canvas
+    return canvas
 end
 
-function Threeslice:render_vertical(h)
+function Threeslice:render_vertical(canvas,h,max_length)
     local quads        = self.quads
     local _, _, _, t_h = quads.t:getViewport()
     local _, _, _, c_h = quads.c:getViewport()
@@ -67,19 +64,20 @@ function Threeslice:render_vertical(h)
     local c_h_scale    = in_h/c_h
     
     local prevCanvas = love.graphics.getCanvas()
-    if (self.max_length==nil) then self.canvas = love.graphics.newCanvas(self.breadth,h) end -- resize canvas (unless max_length is known)
-    love.graphics.setCanvas(self.canvas)
+    if (canvas==nil) then canvas = love.graphics.newCanvas(self.breadth,max_length or h)
+    elseif (max_length and max_length~=canvas:getHeight()) then canvas = love.graphics.newCanvas(self.breadth,max_length) end
+    love.graphics.setCanvas(canvas)
     love.graphics.clear(0,0,0,0)
     love.graphics.draw(self.atlas.image, quads.t, 0, 0)
     love.graphics.draw(self.atlas.image, quads.c, 0, t_h, 0, 1, c_h_scale)
     love.graphics.draw(self.atlas.image, quads.b, 0, t_h+in_h)
     love.graphics.setCanvas(prevCanvas)
-    return self.canvas
+    return canvas
 end
 
-function Threeslice:render(length)
-    if (self.is_vertical) then return self:render_vertical(length)
-    else                       return self:render_horizontal(length)
+function Threeslice:render(canvas,length,max_length)
+    if (self.is_vertical) then return self:render_vertical(canvas,length,max_length)
+    else                       return self:render_horizontal(canvas,length,max_length)
     end
 end
 
