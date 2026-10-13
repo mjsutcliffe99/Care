@@ -8,7 +8,7 @@ nav:
 
 theme:
   name: material
-  logo: assets/care-logo.png
+  logo: assets/care-logo-border.png
   favicon: assets/care-logo.png
   palette:
     - scheme: default
